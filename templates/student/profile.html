@@ -1,0 +1,84 @@
+{% extends "student/index.html" %}
+
+{% block heading %}
+  <h1>Profile</h1>
+{% endblock heading %}
+
+
+{% block main %}
+<div class="row justify-content-center">
+    <div class="col col-md-5">
+      <div class="">
+        <img src="{{ profile.profile_image.url }}" alt="" class="img-thumbnail" style="border-radius: 50%; max-width:180px">
+      </div>
+    
+      <div class="mt-3">
+        <h6>Name: {{profile.surname}} {{ profile.first_name }}</h6>
+        <div>
+          <p>Matriculation Number: {{ profile.matric_number }}</p>
+          <p>Faculty: {{ profile.faculty }}</p>
+          <p>Department: {{ profile.department }}</p>
+          <p>Level: {{ profile.level }}</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="col col-md-5">
+      <form action="" method="post" id="password_reset_form" style="max-width:500px" class="mb-5">
+        {% csrf_token %}
+        <h6>Reset Password</h6>
+
+        <hr>
+    
+        <div class="form-group mb-3">
+          <label for="">Old Password</label>
+          <input type="password" name="old_password" id="old_password" class="form-control">
+          {% if feedback %}
+          <p class="invalid-feedback d-block mt-2">
+            {{feedback}}
+          </p>
+          {% endif %}
+        </div>
+    
+        <div class="form-group mb-3">
+          <label for="">New Password</label>
+          <input type="password" name="new_password" id="new_password" class="form-control">
+        </div>
+    
+        <div class="form-group mb-3">
+          <label for="">Confirm New Password</label>
+          <input type="password" name="confirm_password" id="confirm_password" class="form-control">
+        </div>
+    
+        <button class="btn btn-primary w-100" id="submit_btn" disabled>Submit</button>
+
+        {% if success_msg %}
+        <div class="alert alert-success alert-dismissible fade show mt-2" role="alert">
+        {{ success_msg }}
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+        {% endif %}
+      </form>
+    </div>
+</div>
+
+
+<script>
+  let submit_btn = document.getElementById('submit_btn');
+  let old_password = document.getElementById('old_password');
+  let new_password = document.getElementById('new_password');
+  let confirm_password = document.getElementById('confirm_password');
+
+  let password_reset_form = document.getElementById('password_reset_form');
+
+  confirm_password.addEventListener('keyup', (event) => {
+      if (confirm_password.value !== new_password.value) {
+        //confirm_password.style.border = '1px solid red';
+        confirm_password.classList.add('is-invalid')
+      } else {
+        confirm_password.classList.remove('is-invalid')
+        submit_btn.disabled = false;
+      }
+    })
+</script>
+{% endblock main %}
