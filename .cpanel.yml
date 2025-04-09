@@ -1,9 +1,7 @@
 ---
 deployment:
   tasks:
-    - export DJANGO_SETTINGS_MODULE=core.settings
-    - /home/qqjjkxng/virtualenv/repositories/falohun/3.10 -m pip install --upgrade pip
-    - /home/qqjjkxng/virtualenv/repositories/falohun/3.10 -m pip install -r requirements.txt
-    - python3 manage.py migrate
-    - python3 manage.py collectstatic --noinput
-    - touch tmp/restart.txt
+    - source /home/qqjjkxng/virtualenv/test.lumina.com.ng/backend/3.10/bin/activate
+    - pip install -r requirements.txt
+    - python manage.py migrate
+    - python manage.py collectstatic --noinput
